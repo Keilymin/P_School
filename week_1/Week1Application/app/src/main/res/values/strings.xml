@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Week 1 Application</string>
+    <string name="share">Share</string>
+    <string name="choose">Choose</string>
+    <string name="i_m_actually_invisible">I\'m actually invisible</string>
+    <string name="what_is_thy_bidding_my_master">What is thy bidding, my master?</string>
+    <string name="i_will_show_you_what_i_want_when_i_get_it">I will show you what i want when i get it!</string>
+    <string name="tea">Tea</string>
+    <string name="coffee">Coffee</string>
+    <string name="milkshake">Milkshake</string>
+    <string name="hot_dog">Hot Dog</string>
+    <string name="world_domination">World domination</string>
+    <string name="initial_value">0</string>
+
+</resources>

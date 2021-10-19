@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Week 1 Application</string>
+    <string name="share">Поделится</string>
+    <string name="choose">Выбрать</string>
+    <string name="i_m_actually_invisible">Я невидимый</string>
+    <string name="what_is_thy_bidding_my_master">Какова твоя воля, мой повелитель?</string>
+    <string name="i_will_show_you_what_i_want_when_i_get_it">Я покажу тебе, чего хочу, когда получу это!</string>
+    <string name="tea">Чай</string>
+    <string name="coffee">Кофе</string>
+    <string name="milkshake">Молочный коктейль</string>
+    <string name="hot_dog">Хот-дог</string>
+    <string name="world_domination">Мировое господство</string>
+    <string name="initial_value">0</string>
+</resources>

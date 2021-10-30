@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         search.setOnClickListener {
 
-            if (searchText.text.toString().replace(" ","") != "") {
+            if (searchText.text.toString().trim().isNotEmpty()) {
 
                 val text = searchText.text.toString()
 

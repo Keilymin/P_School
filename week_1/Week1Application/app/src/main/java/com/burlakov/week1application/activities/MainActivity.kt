@@ -11,10 +11,11 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.burlakov.week1application.Constants
-import com.burlakov.week1application.MySpan
+import com.burlakov.week1application.util.MySpan
 import com.burlakov.week1application.R
 import com.burlakov.week1application.api.FlickrApi
 import com.burlakov.week1application.models.Photo
+import com.burlakov.week1application.models.SearchResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,10 +54,7 @@ class MainActivity : AppCompatActivity() {
                 CoroutineScope(Dispatchers.Default).launch {
                     val searchResult = FlickrApi.photoService.search(text)
 
-                    var str = ""
-                    for (p: Photo in searchResult.photos.photo) {
-                        str += "\n\n${FlickrApi.photoUrl}${p.server}/${p.id}_${p.secret}.jpg\n\n"
-                    }
+                    val str = searchResult.getPhotoUrls()
 
                     val string = SpannableString(str)
 
@@ -89,6 +87,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

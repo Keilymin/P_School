@@ -14,8 +14,7 @@ import com.burlakov.week1application.Constants
 import com.burlakov.week1application.util.MySpan
 import com.burlakov.week1application.R
 import com.burlakov.week1application.api.FlickrApi
-import com.burlakov.week1application.models.Photo
-import com.burlakov.week1application.models.SearchResult
+import com.burlakov.week1application.models.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         searchText = findViewById(R.id.editTextName)
         result = findViewById(R.id.result)
         progressBar = findViewById(R.id.progressBar)
+
 
 
         search.setOnClickListener {

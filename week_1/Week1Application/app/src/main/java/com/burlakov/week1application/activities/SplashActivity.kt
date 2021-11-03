@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Default).launch{
             delay(1000)
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashActivity, LogInActivity::class.java))
             finish()
         }
 

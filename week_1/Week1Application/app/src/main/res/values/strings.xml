@@ -2,5 +2,7 @@
     <string name="app_name">Week 2 Application</string>
     <string name="find_picture">Find picture</string>
     <string name="search">Search</string>
+    <string name="sign_in">Sign in</string>
+    <string name="username">Username</string>
 
 </resources>

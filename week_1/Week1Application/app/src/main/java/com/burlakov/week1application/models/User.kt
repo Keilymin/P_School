@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class User(
-    val username: String,
-    var lastSearchText: String
-){
+    val username: String
+) {
     @PrimaryKey(autoGenerate = true)
     var userId: Long? = null
+    var lastSearchText: String = ""
 }

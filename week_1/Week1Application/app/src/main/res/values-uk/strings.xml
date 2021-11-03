@@ -3,5 +3,7 @@
     <string name="app_name">Week 2 Application</string>
     <string name="find_picture">Знайти картинку</string>
     <string name="search">Пошук</string>
+    <string name="sign_in">Увійти</string>
+    <string name="username">Логін</string>
 
 </resources>

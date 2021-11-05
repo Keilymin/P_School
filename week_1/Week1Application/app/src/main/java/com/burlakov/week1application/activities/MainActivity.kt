@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.searchResult.observe(this, {
+                text = it.photos.searchText
             if (it.photos.page == 1) {
                 photosList.clear()
                 photosList.addAll(it.getSavedPhotos(text))
@@ -85,7 +86,6 @@ class MainActivity : AppCompatActivity() {
             }
             progressBar.visibility = ProgressBar.INVISIBLE
             adapter.notifyDataSetChanged()
-
         })
         mainViewModel.lastText.observe(this, {
             searchText.setText(it)

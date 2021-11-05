@@ -42,8 +42,10 @@ class FavoritesUtil {
             }
             if (count == 0) {
                 for (i in list) {
-                    if (i is SearchText) {
+                    if (i is SearchText && i.searchText == text) {
+
                         list.remove(i)
+
                         return
                     }
                 }

@@ -9,7 +9,7 @@ interface SearchHistoryDao {
 
     @Transaction
     @Query("SELECT * FROM User Where userId = :id")
-    fun getUserHistoryByUserId(id: Long): List<UserSearchHistory>
+    fun getUserHistoryByUserId(id: Long): UserSearchHistory
 
     @Delete
     fun delete(searchText: SearchText)

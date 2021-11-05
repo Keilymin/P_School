@@ -1,6 +1,7 @@
 package com.burlakov.week1application.viewmodels
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,19 +44,20 @@ class MainViewModel(
     }
 
     fun searchPhotos(searchText: String) = viewModelScope.launch {
-        _searchResult.value = photoRepository.search(searchText, 1)
+        val sr = photoRepository.search(searchText, 1)
+        sr.photos.searchText = searchText
+        _searchResult.value = sr
         photos = searchResult.value?.photos
-        photos?.searchText = searchText
         if (curUserIsSingIn()) {
             historyRepository.save(SearchText(curUser!!.userId!!, searchText))
         }
     }
 
     fun searchNext() = viewModelScope.launch {
-        _searchResult.value = photoRepository.search(photos!!.searchText, photos!!.page + 1)
-        val searchText = photos!!.searchText
+        val sr  = photoRepository.search(photos!!.searchText, photos!!.page + 1)
+        sr.photos.searchText = photos!!.searchText
+        _searchResult.value = sr
         photos = searchResult.value?.photos
-        photos?.searchText = searchText
     }
 
     fun saveSearchText(searchText: String) = CoroutineScope(Dispatchers.IO).launch {

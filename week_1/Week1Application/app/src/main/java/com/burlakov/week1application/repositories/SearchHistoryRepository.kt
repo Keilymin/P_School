@@ -15,6 +15,6 @@ class SearchHistoryRepository(private val searchHistoryDao: SearchHistoryDao) {
     }
 
     suspend fun getHistory(): List<SearchText> {
-        return searchHistoryDao.getUserHistoryByUserId(curUser!!.userId!!)[0].savedPhotos
+        return searchHistoryDao.getUserHistoryByUserId(curUser!!.userId!!).savedPhotos
     }
 }

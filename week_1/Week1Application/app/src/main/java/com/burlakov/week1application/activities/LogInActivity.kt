@@ -13,7 +13,7 @@ class LogInActivity : AppCompatActivity() {
 
     lateinit var singInButton: Button
     lateinit var usernameEditText: EditText
-    private val logInViewModel by viewModel<LogInViewModel>()
+    private val logInViewModel : LogInViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

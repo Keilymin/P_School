@@ -10,11 +10,17 @@ interface SavedPhotoDao {
 
     @Transaction
     @Query("SELECT * FROM User Where userId = :id")
-    fun getUserSavedPhotosByUserId(id: Long): LiveData<List<UserSavedPhotos>>
+    fun getUserSavedPhotosByUserId(id: Long): UserSavedPhotos
 
     @Delete
     fun delete(savedPhoto: SavedPhoto)
 
     @Insert
     fun add(savedPhoto: SavedPhoto)
+
+    @Query("SELECT * FROM SavedPhoto Where photoUserId == :userId and photoUrl == :photoUrl")
+    fun exist(userId: Long, photoUrl: String) : SavedPhoto?
+
+    @Query("Delete FROM SavedPhoto Where photoUserId == :userId and photoUrl == :photoUrl")
+    fun deleteFavorite(userId: Long, photoUrl: String)
 }

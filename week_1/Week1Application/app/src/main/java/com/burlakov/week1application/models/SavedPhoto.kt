@@ -8,7 +8,7 @@ data class SavedPhoto(
     val photoUserId: Long,
     val searchText: String,
     val photoUrl: String
-){
+) : Favorites{
     @PrimaryKey(autoGenerate = true)
     var photoId: Long? = null
 }

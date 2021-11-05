@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class SearchText(
     val searchUserId: Long,
     val searchText: String,
-){
+) : Favorites{
     @PrimaryKey(autoGenerate = true)
     var searchId: Long? = null
 }

@@ -1,6 +1,7 @@
 package com.burlakov.week1application.api
 
 
+import com.burlakov.week1application.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,7 +13,7 @@ class FlickrApiConstants {
 
         const val baseUrl = "https://api.flickr.com/"
         const val photoUrl = "https://live.staticflickr.com/"
-        const val api_key = "e3c09b7aa90aba9ae0fe92e7ba32b6e9"
+        const val api_key = BuildConfig.SECRET_KEY
         const val format = "json"
 
     }

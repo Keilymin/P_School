@@ -7,6 +7,10 @@
     <string name="username">Логин</string>
     <string name="save_to_favorites">Сохранить в избранное</string>
     <string name="delete_from_favorites">Удалить из избранного</string>
+    <string name="login">Вход</string>
+    <string name="main_menu">Главное меню</string>
+    <string name="image_view">Просмотр изображения</string>
     <string name="favorites">Избранное</string>
     <string name="history">История</string>
+    <string name="internet_not_connected">Отсутствует подключение к интернету</string>
 </resources>

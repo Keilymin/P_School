@@ -14,6 +14,7 @@ import com.burlakov.week1application.models.SearchText
 import com.burlakov.week1application.repositories.PhotoRepository
 import com.burlakov.week1application.repositories.SearchHistoryRepository
 import com.burlakov.week1application.repositories.UserRepository
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +24,6 @@ class MainViewModel(
     private val photoRepository: PhotoRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
-
 
     var photos: Photos? = null
 

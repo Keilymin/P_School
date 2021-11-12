@@ -14,9 +14,7 @@ class MyApplication : Application() {
         var curUser: User? = null
 
         fun curUserIsSingIn(): Boolean {
-            return if (curUser != null) {
-                curUser!!.userId != null
-            } else false
+            return curUser?.userId != null
         }
     }
 

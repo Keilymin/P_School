@@ -1,11 +1,15 @@
 <resources>
-    <string name="app_name">Week 2 Application</string>
+    <string name="app_name">Week 3–4 Application</string>
     <string name="find_picture">Find picture</string>
     <string name="search">Search</string>
     <string name="sign_in">Sign in</string>
     <string name="username">Username</string>
     <string name="save_to_favorites">Save to favorites</string>
     <string name="delete_from_favorites">Delete from favorites</string>
+    <string name="login">Login</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="image_view">Image View</string>
     <string name="favorites">Favorites</string>
     <string name="history">History</string>
+    <string name="internet_not_connected">No internet connection</string>
 </resources>

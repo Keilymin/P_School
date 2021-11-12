@@ -1,6 +1,6 @@
 package com.burlakov.week1application.repositories
 
-import androidx.lifecycle.LiveData
+
 import com.burlakov.week1application.models.SearchResult
 
 import com.burlakov.week1application.api.PhotoService

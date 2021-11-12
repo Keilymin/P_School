@@ -3,19 +3,18 @@ package com.burlakov.week1application.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.burlakov.week1application.R
 import com.burlakov.week1application.adapters.PhotoAdapter
 import com.burlakov.week1application.models.SavedPhoto
-import com.burlakov.week1application.util.DeleteItemCallback
+import com.burlakov.week1application.util.NetworkUtil
 import com.burlakov.week1application.viewmodels.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,20 +50,20 @@ class MainActivity : AppCompatActivity() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val lastCompletelyVisibleItemPosition =
                     (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-                if (lastCompletelyVisibleItemPosition == recyclerView.adapter?.itemCount?.minus(1) ?: -1 && mainViewModel.photos?.hasNext() == true && !progressBar.isVisible) {
+                if (lastCompletelyVisibleItemPosition == recyclerView.adapter?.itemCount?.minus(1) ?: -1
+                    && mainViewModel.photos?.hasNext() == true && !progressBar.isVisible
+                    && checkConnection()
+                ) {
                     progressBar.visibility = ProgressBar.VISIBLE
                     mainViewModel.searchNext()
                 }
             }
         })
         recyclerView.adapter = adapter
-        val deleteItemCallback = DeleteItemCallback(photosList, adapter)
-        val itemTouchHelper = ItemTouchHelper(deleteItemCallback)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         search.setOnClickListener {
 
-            if (searchText.text.toString().trim().isNotEmpty()) {
+            if (searchText.text.toString().trim().isNotEmpty() && checkConnection()) {
 
                 text = searchText.text.toString()
 
@@ -73,10 +72,11 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.searchPhotos(text)
 
             }
+
         }
 
         mainViewModel.searchResult.observe(this, {
-                text = it.photos.searchText
+            text = it.photos.searchText
             if (it.photos.page == 1) {
                 photosList.clear()
                 photosList.addAll(it.getSavedPhotos(text))
@@ -104,6 +104,16 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         mainViewModel.saveSearchText(searchText.text.toString())
 
+    }
+
+    fun checkConnection(): Boolean {
+        return if (NetworkUtil.isOnNetwork(this)) {
+            true
+        } else {
+            Toast.makeText(this, getString(R.string.internet_not_connected), Toast.LENGTH_LONG)
+                .show()
+            false
+        }
     }
 
 

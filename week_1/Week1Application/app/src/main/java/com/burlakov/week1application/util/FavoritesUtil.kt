@@ -8,26 +8,14 @@ class FavoritesUtil {
     companion object {
         fun setHeaders(list: MutableList<SavedPhoto>): MutableList<Favorites> {
             val newList: MutableList<Favorites> = mutableListOf()
-            var text: String
-            var start = 0
-            var end = 0
+            var text = ""
             if (list.size > 0) {
-                text = list[start].searchText
-                newList.add(SearchText(list[start].photoUserId, list[start].searchText))
-
-                while (end < list.size - 1) {
-                    end++
-                    if (list[end].searchText != text) {
-                        for (i in start until end) {
-                            newList.add(list[i])
-                        }
-                        start = end
-                        text = list[start].searchText
-                        newList.add(SearchText(list[start].photoUserId, list[start].searchText))
+                for (sp: SavedPhoto in list) {
+                    if (sp.searchText != text) {
+                        newList.add(SearchText(sp.photoUserId, sp.searchText))
+                        text = sp.searchText
                     }
-                }
-                for (i in start..end) {
-                    newList.add(list[i])
+                    newList.add(sp)
                 }
             }
             return newList

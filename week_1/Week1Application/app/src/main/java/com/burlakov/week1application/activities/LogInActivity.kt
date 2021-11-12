@@ -13,11 +13,13 @@ class LogInActivity : AppCompatActivity() {
 
     lateinit var singInButton: Button
     lateinit var usernameEditText: EditText
-    private val logInViewModel : LogInViewModel by viewModel()
+    private val logInViewModel: LogInViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
+
+        supportActionBar?.title = getString(R.string.login)
 
         singInButton = findViewById(R.id.singIn)
         usernameEditText = findViewById(R.id.username)

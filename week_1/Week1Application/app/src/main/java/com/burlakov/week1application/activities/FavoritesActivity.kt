@@ -22,26 +22,25 @@ class FavoritesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
 
+        supportActionBar?.title = getString(R.string.favorites)
+
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         favoritesViewModel.favorites.observe(this, {
-            val photo: MutableList<SavedPhoto> = mutableListOf()
-            photo.addAll(it)
-            val list = FavoritesUtil.setHeaders(photo)
-            val adapter = PhotoDeleteButtonAdapter(list, favoritesViewModel)
+            val adapter = PhotoDeleteButtonAdapter(it, favoritesViewModel)
             recyclerView.adapter = adapter
-            val deleteItemCallback = DeleteButtonItemCallback(list, adapter, favoritesViewModel)
+            val deleteItemCallback = DeleteButtonItemCallback(it, adapter, favoritesViewModel)
              val itemTouchHelper = ItemTouchHelper(deleteItemCallback)
              itemTouchHelper.attachToRecyclerView(recyclerView)
         })
 
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onRestart() {
+        super.onRestart()
         favoritesViewModel.getFavorites()
     }
 

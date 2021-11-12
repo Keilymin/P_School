@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.burlakov.week1application.MyApplication.Companion.curUser
+import com.burlakov.week1application.MyApplication.Companion.curUserIsSingIn
 import com.burlakov.week1application.models.SearchText
 import com.burlakov.week1application.repositories.SearchHistoryRepository
 import kotlinx.coroutines.Dispatchers
@@ -17,9 +19,11 @@ class HistoryViewModel(private val historyRepository: SearchHistoryRepository) :
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-
-            val searchList = historyRepository.getHistory().sortedByDescending { it.searchId }
-            _history.postValue(searchList)
+            if (curUserIsSingIn()) {
+                val searchList =
+                    historyRepository.getHistory(curUser!!).sortedByDescending { it.searchId }
+                _history.postValue(searchList)
+            }
         }
     }
 }

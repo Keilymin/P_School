@@ -14,14 +14,18 @@ class UserRepository(private val userDao: UserDao) {
         withContext(Dispatchers.IO) {
             var u = userDao.findByUsername(username)
             if (u == null) {
-                val user = User(username)
-                val id = userDao.add(User(username))
-                user.userId = id
-                u = user
+                u = registerUser(username)
             }
             curUser = u
         }
         return true
+    }
+
+    fun registerUser(username: String): User {
+        val user = User(username)
+        val id = userDao.add(User(username))
+        user.userId = id
+        return user
     }
 
     suspend fun saveSearchText(text: String) = withContext(Dispatchers.IO) {

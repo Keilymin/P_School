@@ -3,5 +3,14 @@
     <string name="app_name">Week 2 Application</string>
     <string name="find_picture">Знайти картинку</string>
     <string name="search">Пошук</string>
-
+    <string name="sign_in">Увійти</string>
+    <string name="username">Логін</string>
+    <string name="save_to_favorites">Зберегти в обране</string>
+    <string name="delete_from_favorites">Выдалити з обраного</string>
+    <string name="login">Вхід</string>
+    <string name="main_menu">Головне меню</string>
+    <string name="image_view">Перегляд зображення</string>
+    <string name="favorites">Обране</string>
+    <string name="history">Історія</string>
+    <string name="internet_not_connected">Відсутнє з\'єднання з інтернетом</string>
 </resources>

@@ -7,6 +7,6 @@ import retrofit2.http.Query
 interface PhotoService {
 
 
-    @GET("/services/rest/?method=flickr.photos.search&api_key=${FlickrApi.api_key}&format=${FlickrApi.format}&nojsoncallback=1")
-    suspend fun search(@Query("text") text: String): SearchResult
+    @GET("/services/rest/?method=flickr.photos.search&api_key=${FlickrApiConstants.api_key}&format=${FlickrApiConstants.format}&nojsoncallback=1&per_page=20")
+    suspend fun search(@Query("text") text: String, @Query("page") page: Int): SearchResult
 }

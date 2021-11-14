@@ -1,35 +1,37 @@
 package com.burlakov.week1application.activities
 
 
+import android.content.Intent
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.method.LinkMovementMethod
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.burlakov.week1application.Constants
-import com.burlakov.week1application.util.MySpan
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.burlakov.week1application.R
-import com.burlakov.week1application.api.FlickrApi
-import com.burlakov.week1application.models.Photo
-import com.burlakov.week1application.models.SearchResult
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.regex.Pattern
+import com.burlakov.week1application.adapters.PhotoAdapter
+import com.burlakov.week1application.models.SavedPhoto
+import com.burlakov.week1application.util.NetworkUtil
+import com.burlakov.week1application.viewmodels.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : AppCompatActivity() {
 
 
-    lateinit var search: Button
-    lateinit var searchText: EditText
-    lateinit var result: TextView
-    lateinit var progressBar: ProgressBar
+    private lateinit var search: Button
+    private lateinit var history: Button
+    private lateinit var favorites: Button
+    private lateinit var searchText: EditText
+    private lateinit var progressBar: ProgressBar
+    private lateinit var recyclerView: RecyclerView
+    private val mainViewModel: MainViewModel by viewModel()
+    private var text = ""
+    private var photosList: MutableList<SavedPhoto> = mutableListOf()
+    private var adapter: PhotoAdapter = PhotoAdapter(photosList)
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -37,54 +39,82 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         search = findViewById(R.id.search)
+        history = findViewById(R.id.history)
+        favorites = findViewById(R.id.favorites)
         searchText = findViewById(R.id.editTextName)
-        result = findViewById(R.id.result)
         progressBar = findViewById(R.id.progressBar)
+        recyclerView = findViewById(R.id.recyclerView)
 
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val lastCompletelyVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                if (lastCompletelyVisibleItemPosition == recyclerView.adapter?.itemCount?.minus(1) ?: -1
+                    && mainViewModel.photos?.hasNext() == true && !progressBar.isVisible
+                    && checkConnection()
+                ) {
+                    progressBar.visibility = ProgressBar.VISIBLE
+                    mainViewModel.searchNext()
+                }
+            }
+        })
+        recyclerView.adapter = adapter
 
         search.setOnClickListener {
 
-            if (searchText.text.toString().trim().isNotEmpty()) {
+            if (searchText.text.toString().trim().isNotEmpty() && checkConnection()) {
 
-                val text = searchText.text.toString()
+                text = searchText.text.toString()
 
                 searchText.setText("")
                 progressBar.visibility = ProgressBar.VISIBLE
-
-                CoroutineScope(Dispatchers.Default).launch {
-                    val searchResult = FlickrApi.photoService.search(text)
-
-                    val str = searchResult.getPhotoUrls()
-
-                    val string = SpannableString(str)
-
-                    val matcher = Pattern.compile(
-                        Constants.URL_REG_EX,
-                        Pattern.CASE_INSENSITIVE or Pattern.MULTILINE or Pattern.DOTALL
-                    ).matcher(str)
-
-                    while (matcher.find()) {
-                        val matchStart = matcher.start(1)
-                        val matchEnd = matcher.end()
-                        string.setSpan(
-                            MySpan(str.subSequence(matchStart, matchEnd).toString()),
-                            matchStart,
-                            matchEnd,
-                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-
-                    }
-
-                    withContext(Dispatchers.Main) {
-
-                        progressBar.visibility = ProgressBar.INVISIBLE
-
-                        result.text = string
-                        result.movementMethod = LinkMovementMethod.getInstance()
-                    }
-                }
+                mainViewModel.searchPhotos(text)
 
             }
+
+        }
+
+        mainViewModel.searchResult.observe(this, {
+            text = it.photos.searchText
+            if (it.photos.page == 1) {
+                photosList.clear()
+                photosList.addAll(it.getSavedPhotos(text))
+                recyclerView.smoothScrollToPosition(0)
+            } else {
+                photosList.addAll(it.getSavedPhotos(text))
+            }
+            progressBar.visibility = ProgressBar.INVISIBLE
+            adapter.notifyDataSetChanged()
+        })
+        mainViewModel.lastText.observe(this, {
+            searchText.setText(it)
+        })
+
+        history.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
+        }
+        favorites.setOnClickListener {
+            startActivity(Intent(this, FavoritesActivity::class.java))
+        }
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mainViewModel.saveSearchText(searchText.text.toString())
+
+    }
+
+    fun checkConnection(): Boolean {
+        return if (NetworkUtil.isOnNetwork(this)) {
+            true
+        } else {
+            Toast.makeText(this, getString(R.string.internet_not_connected), Toast.LENGTH_LONG)
+                .show()
+            false
         }
     }
+
+
 }

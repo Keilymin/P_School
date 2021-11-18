@@ -216,4 +216,6 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
+"**/*/res/values/google_maps_api.xml"
+
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio

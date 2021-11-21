@@ -27,6 +27,7 @@ val appModules = module {
     viewModel { HistoryViewModel(get()) }
     viewModel { ImageViewModel(get()) }
     viewModel { FavoritesViewModel(get()) }
+    viewModel { MapSearchResultViewModel(get()) }
 }
 val repositoryModule = module {
     single { UserRepository(get()) }

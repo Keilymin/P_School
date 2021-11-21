@@ -12,4 +12,7 @@
     <string name="favorites">Favorites</string>
     <string name="history">History</string>
     <string name="internet_not_connected">No internet connection</string>
+    <string name="map">Map</string>
+    <string name="no_map_pos">Select position on map</string>
+    <string name="map_search_result">Map search result</string>
 </resources>

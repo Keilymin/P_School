@@ -13,4 +13,7 @@
     <string name="favorites">Избранное</string>
     <string name="history">История</string>
     <string name="internet_not_connected">Отсутствует подключение к интернету</string>
+    <string name="map">Карта</string>
+    <string name="no_map_pos">Выберите позицию на карте</string>
+    <string name="map_search_result">Результат поиска на карте</string>
 </resources>

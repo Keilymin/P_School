@@ -21,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-
+    private lateinit var map: Button
     private lateinit var search: Button
     private lateinit var history: Button
     private lateinit var favorites: Button
@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        map = findViewById(R.id.map)
         search = findViewById(R.id.search)
         history = findViewById(R.id.history)
         favorites = findViewById(R.id.favorites)
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                     (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                 if (lastCompletelyVisibleItemPosition == recyclerView.adapter?.itemCount?.minus(1) ?: -1
                     && mainViewModel.photos?.hasNext() == true && !progressBar.isVisible
-                    && checkConnection()
+                    && NetworkUtil.checkConnection(this@MainActivity)
                 ) {
                     progressBar.visibility = ProgressBar.VISIBLE
                     mainViewModel.searchNext()
@@ -63,7 +64,9 @@ class MainActivity : AppCompatActivity() {
 
         search.setOnClickListener {
 
-            if (searchText.text.toString().trim().isNotEmpty() && checkConnection()) {
+            if (searchText.text.toString().trim()
+                    .isNotEmpty() && NetworkUtil.checkConnection(this)
+            ) {
 
                 text = searchText.text.toString()
 
@@ -97,6 +100,9 @@ class MainActivity : AppCompatActivity() {
         favorites.setOnClickListener {
             startActivity(Intent(this, FavoritesActivity::class.java))
         }
+        map.setOnClickListener {
+            startActivity(Intent(this, MapActivity::class.java))
+        }
 
     }
 
@@ -104,16 +110,6 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         mainViewModel.saveSearchText(searchText.text.toString())
 
-    }
-
-    fun checkConnection(): Boolean {
-        return if (NetworkUtil.isOnNetwork(this)) {
-            true
-        } else {
-            Toast.makeText(this, getString(R.string.internet_not_connected), Toast.LENGTH_LONG)
-                .show()
-            false
-        }
     }
 
 

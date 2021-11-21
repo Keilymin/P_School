@@ -13,8 +13,10 @@ class FlickrApiConstants {
 
         const val baseUrl = "https://api.flickr.com/"
         const val photoUrl = "https://live.staticflickr.com/"
-        const val api_key = BuildConfig.SECRET_KEY
+        const val api_key = BuildConfig.FLICKR_KEY
         const val format = "json"
+        const val perPage = "20"
+        const val radius = "20"
 
     }
 

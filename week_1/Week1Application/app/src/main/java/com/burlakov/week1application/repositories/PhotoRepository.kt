@@ -15,6 +15,10 @@ class PhotoRepository(private val photoDao: SavedPhotoDao, private val photoServ
         return photoService.search(text, page)
     }
 
+    suspend fun searchOnMap(lat: String, lon: String, page: Int): SearchResult {
+        return photoService.searchOnMap(lat, lon, page)
+    }
+
     suspend fun addToFavorites(savedPhoto: SavedPhoto) {
         withContext(Dispatchers.IO) {
             photoDao.add(savedPhoto)

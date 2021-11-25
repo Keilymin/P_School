@@ -96,7 +96,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             REQUEST_LOCATION_PERMISSION -> {
-                if (addMarkOnMyLocation()) {
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED) && addMarkOnMyLocation()
+                ) {
                     map.setOnMyLocationButtonClickListener { addMarkOnMyLocation() }
                 }
             }

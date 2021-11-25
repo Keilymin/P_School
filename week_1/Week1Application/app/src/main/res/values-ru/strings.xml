@@ -16,4 +16,11 @@
     <string name="map">Карта</string>
     <string name="no_map_pos">Выберите позицию на карте</string>
     <string name="map_search_result">Результат поиска на карте</string>
+    <string name="gallery">Галерея</string>
+    <string name="photo">Фото</string>
+    <string name="edit_photo">Редактировать фото?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="save_to_storage">Сохранить в хранилище</string>
+    <string name="saved">Сохранено</string>
 </resources>

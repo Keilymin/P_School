@@ -15,4 +15,11 @@
     <string name="map">Map</string>
     <string name="no_map_pos">Select position on map</string>
     <string name="map_search_result">Map search result</string>
+    <string name="gallery">Gallery</string>
+    <string name="photo">Photo</string>
+    <string name="edit_photo">Edit photo?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="save_to_storage">Save to Storage</string>
+    <string name="saved">Saved</string>
 </resources>

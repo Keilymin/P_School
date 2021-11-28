@@ -2,10 +2,6 @@ package com.burlakov.week1application.viewmodels
 
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,11 +14,10 @@ import com.burlakov.week1application.models.SearchText
 import com.burlakov.week1application.repositories.PhotoRepository
 import com.burlakov.week1application.repositories.SearchHistoryRepository
 import com.burlakov.week1application.repositories.UserRepository
+import com.burlakov.week1application.util.Constants
 import kotlinx.coroutines.*
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MainViewModel(
     private val historyRepository: SearchHistoryRepository,
@@ -76,15 +71,13 @@ class MainViewModel(
 
     @SuppressLint("SimpleDateFormat")
     @Throws(IOException::class)
-    fun createImageFile(filesDir: File) = viewModelScope.launch(Dispatchers.IO) {
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir = File(filesDir, "Images")
-        storageDir.mkdir()
+    fun createImageFile() = viewModelScope.launch(Dispatchers.IO) {
+        Constants.internalImageDirectory.mkdir()
         _savedImage.postValue(
             File.createTempFile(
-                "JPEG_${timeStamp}_",
+                "JPEG_${Constants.timeStamp}_",
                 ".jpg",
-                storageDir
+                Constants.internalImageDirectory
             )
         )
     }

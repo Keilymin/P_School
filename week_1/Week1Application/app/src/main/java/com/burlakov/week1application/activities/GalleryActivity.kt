@@ -35,8 +35,6 @@ class GalleryActivity : AppCompatActivity() {
         grantedStorage =
             PermissionUtil.checkStoragePermission(this, this, REQUEST_STORAGE_PERMISSION)
         galleryViewModel.getAllStorageImage(
-            filesDir,
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
             grantedStorage
         )
 
@@ -61,8 +59,6 @@ class GalleryActivity : AppCompatActivity() {
                     grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
                     galleryViewModel.getAllStorageImage(
-                        filesDir,
-                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
                         true
                     )
                 }

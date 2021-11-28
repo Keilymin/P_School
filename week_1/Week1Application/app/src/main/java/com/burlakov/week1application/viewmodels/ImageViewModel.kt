@@ -3,7 +3,6 @@ package com.burlakov.week1application.viewmodels
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
-import android.os.Environment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,14 +12,12 @@ import com.burlakov.week1application.MyApplication.Companion.curUser
 import com.burlakov.week1application.MyApplication.Companion.curUserIsSingIn
 import com.burlakov.week1application.models.SavedPhoto
 import com.burlakov.week1application.repositories.PhotoRepository
+import com.burlakov.week1application.util.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class ImageViewModel(private val photoRepository: PhotoRepository) : ViewModel() {
@@ -63,15 +60,12 @@ class ImageViewModel(private val photoRepository: PhotoRepository) : ViewModel()
     fun saveToStorage(url: String, context: Context) = viewModelScope.launch(Dispatchers.IO) {
         val img = Glide.with(context).asBitmap().load(url).submit().get()
 
-        var dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
-        dir = File(dir, "P_School")
-        if (!dir.exists()) {
-            dir.mkdir()
+        
+        if (!Constants.externalPublicImageDirectory.exists()) {
+            Constants.externalPublicImageDirectory.mkdir()
         }
 
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-
-        val file = File(dir, "JPEG_$timeStamp.jpg")
+        val file = File(Constants.externalPublicImageDirectory, "JPEG_${Constants.timeStamp}.jpg")
 
         val fos = FileOutputStream(file)
         img.compress(Bitmap.CompressFormat.JPEG, 100, fos)

@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         photo.setOnClickListener {
-            mainViewModel.createImageFile(filesDir)
+            mainViewModel.createImageFile()
         }
         mainViewModel.savedImage.observe(this) {
             val image = it

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.burlakov.week1application.util.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -14,17 +15,17 @@ class GalleryViewModel : ViewModel() {
 
     private var _gallery = MutableLiveData<MutableList<File>>()
 
-    fun getAllStorageImage(filesDir: File, externalStoragePublicDirectory : File, grantedStorage : Boolean) =
+    fun getAllStorageImage(grantedStorage : Boolean) =
         viewModelScope.launch(Dispatchers.IO) {
             val files = mutableListOf<File>()
-
-            File(filesDir.path + "/Images").walkTopDown().filter {
+            
+            Constants.internalImageDirectory.walkTopDown().filter {
                 it.isFile
             }.forEach {
                 files.add(it)
             }
             if (grantedStorage) {
-                File(externalStoragePublicDirectory.path + "/P_School").walkTopDown().filter {
+                Constants.externalPublicImageDirectory.walkTopDown().filter {
                     it.isFile
                 }.forEach {
                     files.add(it)

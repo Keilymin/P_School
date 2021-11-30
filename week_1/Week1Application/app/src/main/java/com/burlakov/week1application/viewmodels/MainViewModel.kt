@@ -1,7 +1,7 @@
 package com.burlakov.week1application.viewmodels
 
 
-import android.util.Log
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,10 +14,10 @@ import com.burlakov.week1application.models.SearchText
 import com.burlakov.week1application.repositories.PhotoRepository
 import com.burlakov.week1application.repositories.SearchHistoryRepository
 import com.burlakov.week1application.repositories.UserRepository
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.burlakov.week1application.util.Constants
+import kotlinx.coroutines.*
+import java.io.File
+import java.io.IOException
 
 class MainViewModel(
     private val historyRepository: SearchHistoryRepository,
@@ -37,6 +37,11 @@ class MainViewModel(
 
     private var _lastText = MutableLiveData<String>()
 
+    val savedImage: LiveData<File>
+        get() = _savedImage
+
+    private val _savedImage = MutableLiveData<File>()
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _lastText.postValue(userRepository.getLastText())
@@ -54,7 +59,7 @@ class MainViewModel(
     }
 
     fun searchNext() = viewModelScope.launch {
-        val sr  = photoRepository.search(photos!!.searchText, photos!!.page + 1)
+        val sr = photoRepository.search(photos!!.searchText, photos!!.page + 1)
         sr.photos.searchText = photos!!.searchText
         _searchResult.value = sr
         photos = searchResult.value?.photos
@@ -63,4 +68,18 @@ class MainViewModel(
     fun saveSearchText(searchText: String) = CoroutineScope(Dispatchers.IO).launch {
         userRepository.saveSearchText(searchText)
     }
+
+    @SuppressLint("SimpleDateFormat")
+    @Throws(IOException::class)
+    fun createImageFile() = viewModelScope.launch(Dispatchers.IO) {
+        Constants.internalImageDirectory.mkdir()
+        _savedImage.postValue(
+            File.createTempFile(
+                "JPEG_${Constants.timeStamp}_",
+                ".jpg",
+                Constants.internalImageDirectory
+            )
+        )
+    }
+
 }

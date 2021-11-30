@@ -86,7 +86,29 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/map"
-        app:layout_constraintBottom_toTopOf="@+id/favorites"
+        app:layout_constraintBottom_toTopOf="@+id/history"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/gallery" />
+
+    <Button
+        android:id="@+id/gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/gallery"
+        app:layout_constraintBottom_toTopOf="@+id/favorites"
+        app:layout_constraintEnd_toStartOf="@id/map"
+        app:layout_constraintStart_toEndOf="@id/photo" />
+
+    <Button
+        android:id="@+id/photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/photo"
+        app:layout_constraintBottom_toTopOf="@id/favorites"
+        app:layout_constraintEnd_toStartOf="@id/gallery"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

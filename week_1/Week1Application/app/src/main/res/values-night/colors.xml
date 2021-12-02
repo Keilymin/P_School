@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="ucrop_color_toolbar">@color/black</color>
+    <color name="ucrop_color_statusbar">@color/purple_night</color>
+    <color name="ucrop_color_toolbar_widget">@color/white</color>
+    <color name="ucrop_color_widget">@color/white</color>
+    <color name="ucrop_color_widget_active">@color/white</color>
+    <color name="ucrop_color_active_controls_color">@color/red</color>
+    <color name="ucrop_color_inactive_controls_color">@color/white</color>
+    <color name="ucrop_color_widget_rotate_mid_line">@color/white</color>
+    <color name="ucrop_color_widget_rotate_angle">@color/white</color>
+    <color name="ucrop_color_active_aspect_ratio">@color/white</color>
+    <color name="ucrop_color_inactive_aspect_ratio">@color/white</color>
+    <color name="ucrop_color_widget_background">@color/purple_night</color>
+    <color name="ucrop_color_widget_text">@color/white</color>
+    <color name="ucrop_color_progress_wheel_line">@color/white</color>
+    <color name="ucrop_color_crop_background">@color/white</color>
+    <color name="controls_shape">@color/black</color>
+    <color name="cancel_button">@color/white</color>
+
+    <color name="image_not_favorite">@color/teal_700</color>
+    <color name="image_favorite">@color/dark_red</color>
+
+    <color name="text_color">@color/white</color>
+    <color name="reverse_text_color">@color/black</color>
+</resources>

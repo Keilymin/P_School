@@ -3,9 +3,41 @@
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
+    <color name="purple_dark">#000082</color>
+    <color name="purple_night">#6a1b9a</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
+    <color name="purple_light">#9c47ff</color>
+    <color name="amber">#ff6f00</color>
+    <color name="dark_red">#8e0000</color>
+    <color name="grey">#cfd8dc</color>
+
+    <color name="ucrop_color_toolbar">@color/purple_500</color>
+    <color name="ucrop_color_statusbar">@color/purple_700</color>
+    <color name="ucrop_color_toolbar_widget">@color/white</color>
+    <color name="ucrop_color_widget">@color/black</color>
+    <color name="ucrop_color_widget_active">@color/white</color>
+    <color name="ucrop_color_active_controls_color">@color/amber</color>
+    <color name="ucrop_color_inactive_controls_color">@color/white</color>
+    <color name="ucrop_color_widget_rotate_mid_line">@color/black</color>
+    <color name="ucrop_color_widget_rotate_angle">@color/black</color>
+    <color name="ucrop_color_active_aspect_ratio">@color/purple_700</color>
+    <color name="ucrop_color_inactive_aspect_ratio">@color/purple_700</color>
+    <color name="ucrop_color_widget_background">@color/purple_500</color>
+    <color name="ucrop_color_widget_text">@color/black</color>
+    <color name="ucrop_color_progress_wheel_line">@color/purple_700</color>
+    <color name="ucrop_color_crop_background">@color/white</color>
+    <color name="controls_shape">@color/white</color>
+    <color name="cancel_button">@color/black</color>
+
+    <color name="image_not_favorite">@color/teal_700</color>
+    <color name="image_favorite">@color/red</color>
+
+    <color name="text_color">@color/black</color>
+    <color name="reverse_text_color">@color/white</color>
+
+    <color name="delete_color">@color/black</color>
 </resources>

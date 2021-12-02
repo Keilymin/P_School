@@ -7,6 +7,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("DEPRECATION")
 class Constants {
     companion object {
         val timeStamp: String

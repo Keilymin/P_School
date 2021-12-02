@@ -12,7 +12,7 @@ class LogInViewModel(private val userRepository: UserRepository) : ViewModel() {
         get() = _logInResult
 
     private val _logInResult = MutableLiveData<Boolean>()
-
+    
 
     fun singIn(username: String) = viewModelScope.launch {
         _logInResult.value = userRepository.logIn(username)

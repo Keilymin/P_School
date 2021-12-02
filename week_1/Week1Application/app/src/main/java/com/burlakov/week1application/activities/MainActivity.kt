@@ -173,4 +173,8 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.saveSearchText(searchText.text.toString())
 
     }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this, LogInActivity::class.java))
+    }
 }

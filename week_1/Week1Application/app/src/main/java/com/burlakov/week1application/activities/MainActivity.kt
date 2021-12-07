@@ -1,7 +1,7 @@
 package com.burlakov.week1application.activities
 
 
-import android.annotation.SuppressLint
+
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
@@ -25,8 +25,6 @@ import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -37,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var search: Button
     private lateinit var history: Button
     private lateinit var gallery: Button
+    private lateinit var settings: Button
     private lateinit var favorites: Button
     private lateinit var searchText: EditText
     private lateinit var progressBar: ProgressBar
@@ -57,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         search = findViewById(R.id.search)
         history = findViewById(R.id.history)
         gallery = findViewById(R.id.gallery)
+        settings = findViewById(R.id.settings)
         favorites = findViewById(R.id.favorites)
         searchText = findViewById(R.id.editTextName)
         progressBar = findViewById(R.id.progressBar)
@@ -123,7 +123,9 @@ class MainActivity : AppCompatActivity() {
         gallery.setOnClickListener {
             startActivity(Intent(this, GalleryActivity::class.java))
         }
-
+        settings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
         val dialogClickListener =
             DialogInterface.OnClickListener { _, which ->
                 when (which) {
@@ -170,5 +172,9 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         mainViewModel.saveSearchText(searchText.text.toString())
 
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this, LogInActivity::class.java))
     }
 }

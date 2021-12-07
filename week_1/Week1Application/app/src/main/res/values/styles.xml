@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_layout</item>
+
+    <style name="Image">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="Image.Base" parent="Image">
+        <item name="android:layout_marginStart">@dimen/base_margin</item>
+        <item name="android:layout_marginTop">@dimen/base_margin</item>
+        <item name="android:layout_marginEnd">@dimen/base_margin</item>
+        <item name="android:layout_marginBottom">@dimen/base_margin</item>
+    </style>
+
+    <style name="Image.Small" parent="Image">
+        <item name="android:layout_width">@dimen/small_image_width</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginStart">@dimen/small_margin</item>
+        <item name="android:layout_marginTop">@dimen/small_margin</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_margin</item>
+    </style>
+
+    <style name="TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/small_margin</item>
+        <item name="android:layout_marginTop">@dimen/small_margin</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin</item>
+        <item name="android:layout_marginBottom">@dimen/small_margin</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextView.Base">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextView.Header">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="cardCornerRadius">3dp</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+
+    <style name="Card.Base" parent="Card">
+        <item name="android:layout_height">100dp</item>
+    </style>
+
+    <style name="Card.Small" parent="Card">
+        <item name="android:layout_height">50dp</item>
+    </style>
+
+    <style name="InvisibleProgressBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:visibility">invisible</item>
     </style>
 </resources>

@@ -23,4 +23,9 @@
     <string name="no">Нет</string>
     <string name="save_to_storage">Сохранить в хранилище</string>
     <string name="saved">Сохранено</string>
+    <string name="settings">Настройки</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Темная</string>
+    <string name="auto">Автоматически</string>
+    <string name="change_theme">Изменить тему</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.burlakov.week1application
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.burlakov.week1application.api.FlickrApiConstants
 import com.burlakov.week1application.models.User
 import org.koin.android.ext.koin.androidContext
@@ -19,6 +20,7 @@ class MyApplication : Application() {
         }
         
         lateinit var internalDir : File
+
     }
 
     override fun onCreate() {

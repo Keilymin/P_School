@@ -74,7 +74,7 @@ class ImageActivity : AppCompatActivity() {
         imageViewModel.saved.observe(this, {
             if (it) {
                 favorite.setText(R.string.delete_from_favorites)
-                favorite.setBackgroundColor(ContextCompat.getColor(this, R.color.red))
+                favorite.setBackgroundColor(ContextCompat.getColor(this, R.color.image_favorite))
             } else {
                 favorite.setText(R.string.save_to_favorites)
                 favorite.setBackgroundColor(ContextCompat.getColor(this, R.color.teal_700))

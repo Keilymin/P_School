@@ -17,13 +17,13 @@ class HistoryViewModel(private val historyRepository: SearchHistoryRepository) :
 
     private var _history = MutableLiveData<List<SearchText>>()
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (curUserIsSingIn()) {
-                val searchList =
-                    historyRepository.getHistory(curUser!!).sortedByDescending { it.searchId }
-                _history.postValue(searchList)
-            }
+
+    fun getHistory() = viewModelScope.launch(Dispatchers.IO) {
+        if (curUserIsSingIn()) {
+            val searchList =
+                historyRepository.getHistory(curUser!!).sortedByDescending { it.searchId }
+            _history.postValue(searchList)
         }
     }
+
 }

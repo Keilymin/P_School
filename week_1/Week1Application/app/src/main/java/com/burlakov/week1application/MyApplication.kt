@@ -1,9 +1,9 @@
 package com.burlakov.week1application
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
-import com.burlakov.week1application.api.FlickrApiConstants
+import android.content.Context
 import com.burlakov.week1application.models.User
+import com.burlakov.week1application.util.UserUtil
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
@@ -18,14 +18,24 @@ class MyApplication : Application() {
         fun curUserIsSingIn(): Boolean {
             return curUser?.userId != null
         }
-        
-        lateinit var internalDir : File
+
+        fun checkSavedUserState(context: Context): Boolean {
+            curUser = UserUtil.getUser(context)
+            return curUser != null
+        }
+
+        lateinit var internalDir: File
+
+        fun logOut(context: Context) {
+            curUser = null
+            UserUtil.logOut(context)
+        }
 
     }
 
     override fun onCreate() {
         super.onCreate()
-        
+
         startKoin {
             androidContext(this@MyApplication)
             loadKoinModules(
@@ -35,7 +45,7 @@ class MyApplication : Application() {
                 )
             )
         }
-        
+
         internalDir = filesDir
     }
 }

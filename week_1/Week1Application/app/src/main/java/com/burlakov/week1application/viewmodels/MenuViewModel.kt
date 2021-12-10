@@ -12,10 +12,10 @@ import java.io.File
 import java.io.IOException
 
 class MenuViewModel : ViewModel() {
-    val savedImage: LiveData<File>
+    val savedImage: LiveData<File?>
         get() = _savedImage
 
-    private val _savedImage = MutableLiveData<File>()
+    private val _savedImage = MutableLiveData<File?>()
 
     @SuppressLint("SimpleDateFormat")
     @Throws(IOException::class)
@@ -28,5 +28,8 @@ class MenuViewModel : ViewModel() {
                 Constants.internalImageDirectory
             )
         )
+    }
+    fun clear() = viewModelScope.launch{
+        _savedImage.value = null
     }
 }

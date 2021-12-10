@@ -69,17 +69,4 @@ class MainViewModel(
         userRepository.saveSearchText(searchText)
     }
 
-    @SuppressLint("SimpleDateFormat")
-    @Throws(IOException::class)
-    fun createImageFile() = viewModelScope.launch(Dispatchers.IO) {
-        Constants.internalImageDirectory.mkdir()
-        _savedImage.postValue(
-            File.createTempFile(
-                "JPEG_${Constants.timeStamp}_",
-                ".jpg",
-                Constants.internalImageDirectory
-            )
-        )
-    }
-
 }

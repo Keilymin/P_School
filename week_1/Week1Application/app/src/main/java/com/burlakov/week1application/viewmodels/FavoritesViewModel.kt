@@ -34,7 +34,6 @@ class FavoritesViewModel(private val photoRepository: PhotoRepository) : ViewMod
                 val list = FavoritesUtil.setHeaders(photo)
                 _favorites.postValue(list)
             }
-            Log.e("s","!")
         }
     }
 

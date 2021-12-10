@@ -5,7 +5,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,9 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
 import com.burlakov.week1application.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -46,23 +48,25 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         val mapFragment = SupportMapFragment.newInstance()
-        activity?.supportFragmentManager?.beginTransaction()
-            ?.add(R.id.map, mapFragment)?.commit()
+        childFragmentManager.beginTransaction()
+            .add(R.id.map, mapFragment).commit()
         mapFragment.getMapAsync(this)
 
         search.setOnClickListener {
             if (currMarker != null) {
-                val intent = Intent(context, MapSearchResultActivity::class.java)
-                intent.putExtra(
-                    MapSearchResultActivity.LAT,
+                val bundle = Bundle()
+                bundle.putString(
+                    MapSearchResultFragment.LAT,
                     currMarker!!.position.latitude.toString()
                 )
-                intent.putExtra(
-                    MapSearchResultActivity.LON,
+                bundle.putString(
+                    MapSearchResultFragment.LON,
                     currMarker!!.position.longitude.toString()
                 )
-                startActivity(intent)
-            } else Toast.makeText(context, getString(R.string.no_map_pos), Toast.LENGTH_SHORT).show()
+
+                findNavController().navigate(R.id.action_nav_map_to_nav_map_result, bundle)
+            } else Toast.makeText(context, getString(R.string.no_map_pos), Toast.LENGTH_SHORT)
+                .show()
         }
 
         return root
@@ -87,7 +91,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         if (addMarkOnMyLocation()) {
             map.setOnMyLocationButtonClickListener { addMarkOnMyLocation() }
         } else {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_PERMISSION
             )
         }

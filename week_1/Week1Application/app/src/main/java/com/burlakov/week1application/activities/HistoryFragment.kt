@@ -32,6 +32,8 @@ class HistoryFragment : Fragment() {
             recyclerView.adapter = HistoryAdapter(it)
         })
 
+        historyViewModel.getHistory()
+
         return root
     }
 

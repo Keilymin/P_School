@@ -1,9 +1,13 @@
 package com.burlakov.week1application.activities
 
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.burlakov.week1application.BuildConfig
@@ -14,7 +18,7 @@ import com.burlakov.week1application.util.NetworkUtil
 import com.burlakov.week1application.viewmodels.MapSearchResultViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MapSearchResultActivity : AppCompatActivity() {
+class MapSearchResultFragment : Fragment() {
     companion object {
         const val LAT = BuildConfig.APPLICATION_ID + ".extra.LAT"
         const val LON = BuildConfig.APPLICATION_ID + ".extra.LON"
@@ -26,25 +30,23 @@ class MapSearchResultActivity : AppCompatActivity() {
     private var adapter: PhotoAdapter = PhotoAdapter(photosList)
     private lateinit var progressBar: ProgressBar
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map_search_result)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val root = inflater.inflate(R.layout.fragment_map_search_result, container, false)
+        recyclerView = root.findViewById(R.id.recycler)
+        progressBar = root.findViewById(R.id.progressBar)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.map_search_result)
-
-
-        recyclerView = findViewById(R.id.recycler)
-        progressBar = findViewById(R.id.progressBar)
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val lastCompletelyVisibleItemPosition =
                     (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                 if (lastCompletelyVisibleItemPosition == recyclerView.adapter?.itemCount?.minus(1) ?: -1
-                    && mapSearchResultViewModel.photos?.hasNext() == true && !progressBar.isVisible
-                    && NetworkUtil.checkConnection(this@MapSearchResultActivity)
+                    && mapSearchResultViewModel.searchResult.value?.photos?.hasNext() == true && !progressBar.isVisible
+                    && NetworkUtil.checkConnection(requireContext())
                 ) {
                     progressBar.visibility = ProgressBar.VISIBLE
                     mapSearchResultViewModel.searchNext()
@@ -53,13 +55,10 @@ class MapSearchResultActivity : AppCompatActivity() {
         })
         recyclerView.adapter = adapter
 
-        if (intent.getStringExtra(LAT) != null &&
-            intent.getStringExtra(LON) != null && NetworkUtil.checkConnection(this)
-        ) {
-            val lat = intent.getStringExtra(LAT)!!
-            val lon = intent.getStringExtra(LON)!!
-            progressBar.visibility = ProgressBar.VISIBLE
-            mapSearchResultViewModel.searchPhotos(lat, lon)
+        if (NetworkUtil.checkConnection(requireContext())) {
+            arguments?.getString(LAT)?.let { arguments?.getString(LON)?.let { it1 ->
+                progressBar.visibility = ProgressBar.VISIBLE
+                mapSearchResultViewModel.searchPhotos(it, it1) } }
         }
 
         mapSearchResultViewModel.searchResult.observe(this, {
@@ -67,17 +66,14 @@ class MapSearchResultActivity : AppCompatActivity() {
             if (it.photos.page == 1) {
                 photosList.clear()
                 photosList.addAll(it.getSavedPhotos(text))
-                recyclerView.smoothScrollToPosition(0)
             } else {
                 photosList.addAll(it.getSavedPhotos(text))
             }
             progressBar.visibility = ProgressBar.INVISIBLE
             adapter.notifyDataSetChanged()
         })
+
+        return root
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
 }

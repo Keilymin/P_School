@@ -1,17 +1,18 @@
 package com.burlakov.week1application.adapters
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.burlakov.week1application.R
-import com.burlakov.week1application.activities.ImageActivity
+import com.burlakov.week1application.activities.ImageFragment
 import com.burlakov.week1application.models.Favorites
 import com.burlakov.week1application.models.SavedPhoto
 import com.burlakov.week1application.models.SearchText
@@ -63,10 +64,10 @@ class PhotoDeleteButtonAdapter(
         } else if (favorite is SavedPhoto && holder is ItemViewHolder) {
             Glide.with(holder.image.context).load(favorite.photoUrl).into(holder.image)
             holder.itemView.setOnClickListener {
-                val intent = Intent(holder.itemView.context, ImageActivity::class.java)
-                intent.putExtra(ImageActivity.SEARCH_TEXT, favorite.searchText)
-                intent.putExtra(ImageActivity.PHOTO_URL, favorite.photoUrl)
-                holder.itemView.context.startActivity(intent)
+                val bundle = Bundle()
+                bundle.putString(ImageFragment.SEARCH_TEXT, favorite.searchText)
+                bundle.putString(ImageFragment.PHOTO_URL, favorite.photoUrl)
+                holder.image.findNavController().navigate(R.id.to_nav_image,bundle)
             }
             holder.delete.setOnClickListener {
                 viewModel.deleteFromFavorites(favorite.photoUrl)

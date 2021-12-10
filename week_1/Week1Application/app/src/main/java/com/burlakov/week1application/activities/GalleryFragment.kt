@@ -53,7 +53,7 @@ class GalleryFragment : Fragment() {
             files.addAll(it)
             adapter.notifyDataSetChanged()
         }
-
+        galleryViewModel.getAllStorageImage(grantedStorage)
         return root
     }
 
@@ -77,9 +77,4 @@ class GalleryFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        Log.e("res", "reas")
-        galleryViewModel.getAllStorageImage(grantedStorage)
-        super.onResume()
-    }
 }

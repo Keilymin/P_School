@@ -5,11 +5,34 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_main">
 
+    <activity
+        android:id="@+id/menu"
+        android:name="com.burlakov.week1application.activities.MenuActivity"
+        tools:layout="@layout/activity_menu" />
+
+    <action
+        android:id="@+id/to_login"
+        app:destination="@id/nav_login"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/nav_main"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/to_menu"
+        app:destination="@id/nav_main"
+        app:launchSingleTop="true"
+        app:popUpTo="@+id/nav_login"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/to_nav_image"
+        app:destination="@id/nav_image"/>
+
     <fragment
         android:id="@+id/nav_main"
         android:name="com.burlakov.week1application.activities.MainFragment"
         android:label="@string/main_menu"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+    </fragment>
     <fragment
         android:id="@+id/nav_history"
         android:name="com.burlakov.week1application.activities.HistoryFragment"
@@ -19,12 +42,17 @@
         android:id="@+id/nav_favorite"
         android:name="com.burlakov.week1application.activities.FavoritesFragment"
         android:label="@string/favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites">
+    </fragment>
     <fragment
         android:id="@+id/nav_map"
         android:name="com.burlakov.week1application.activities.MapFragment"
         android:label="@string/map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/action_nav_map_to_nav_map_result"
+            app:destination="@id/nav_map_result" />
+    </fragment>
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.burlakov.week1application.activities.GalleryFragment"
@@ -35,5 +63,20 @@
         android:name="com.burlakov.week1application.activities.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
-
+    <fragment
+        android:id="@+id/nav_map_result"
+        android:name="com.burlakov.week1application.activities.MapSearchResultFragment"
+        android:label="@string/map_search_result"
+        tools:layout="@layout/fragment_map_search_result">
+    </fragment>
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.burlakov.week1application.activities.LogInFragment"
+        android:label="@string/login"
+        tools:layout="@layout/fragment_log_in" />
+    <fragment
+        android:id="@+id/nav_image"
+        android:name="com.burlakov.week1application.activities.ImageFragment"
+        android:label="@string/image_view"
+        tools:layout="@layout/fragment_image" />
 </navigation>

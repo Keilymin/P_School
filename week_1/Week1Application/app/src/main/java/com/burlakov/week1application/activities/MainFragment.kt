@@ -3,6 +3,7 @@ package com.burlakov.week1application.activities
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,23 +67,22 @@ class MainFragment : Fragment() {
             if (searchText.text.toString().trim()
                     .isNotEmpty() && NetworkUtil.checkConnection(requireContext())
             ) {
-
-                text = searchText.text.toString()
-
-                searchText.setText("")
                 progressBar.visibility = ProgressBar.VISIBLE
-                mainViewModel.searchPhotos(text)
-
+                mainViewModel.searchPhotos(searchText.text.toString())
+                searchText.setText("")
             }
 
         }
 
         mainViewModel.searchResult.observe(this, {
-            text = it.photos.searchText
+
             if (it.photos.page == 1) {
                 photosList.clear()
-                photosList.addAll(it.getSavedPhotos(text))
-                recyclerView.smoothScrollToPosition(0)
+                photosList.addAll(it.getSavedPhotos(it.photos.searchText))
+                if (text != it.photos.searchText){
+                    recyclerView.smoothScrollToPosition(0)
+                    text = it.photos.searchText
+                }
             } else {
                 photosList.addAll(it.getSavedPhotos(text))
             }

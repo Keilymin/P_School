@@ -29,7 +29,7 @@ class LogInActivity : AppCompatActivity() {
 
         logInViewModel.logInResult.observe(this, {
             if (it == true) {
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, MenuActivity::class.java))
                 this.finish()
             }
         })

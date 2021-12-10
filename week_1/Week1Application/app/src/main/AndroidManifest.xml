@@ -20,17 +20,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.MenuActivity"/>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.DayNight.NoActionBar"/>
-        <activity android:name=".activities.GalleryActivity" />
-        <activity android:name=".activities.SettingsActivity" />
-        <activity android:name=".activities.FavoritesActivity" />
+            android:theme="@style/AppTheme.DayNight"/>
         <activity android:name=".activities.MapSearchResultActivity" />
-        <activity android:name=".activities.MapActivity" />
-        <activity android:name=".activities.HistoryActivity" />
         <activity android:name=".activities.LogInActivity" />
         <activity
             android:name=".activities.SplashActivity"

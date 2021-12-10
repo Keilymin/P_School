@@ -63,12 +63,12 @@ class ImageActivity : AppCompatActivity() {
                 }
 
             }
-            save.setOnClickListener {
-                if (PermissionUtil.checkStoragePermission(this, this, REQUEST_STORAGE_PERMISSION)) {
-                    imageViewModel.saveToStorage(imageUrl, this)
-                }
-
-            }
+//            save.setOnClickListener {
+//                if (PermissionUtil.checkStoragePermission(this, this, REQUEST_STORAGE_PERMISSION)) {
+//                    imageViewModel.saveToStorage(imageUrl, this)
+//                }
+//
+//            }
         }
 
         imageViewModel.saved.observe(this, {

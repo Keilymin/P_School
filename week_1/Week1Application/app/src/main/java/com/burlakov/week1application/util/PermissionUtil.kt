@@ -5,14 +5,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 
 class PermissionUtil {
 
     companion object {
+        @Suppress("DEPRECATION")
         fun checkStoragePermission(
             context: Context,
-            activity: Activity,
-            REQUEST_STORAGE_PERMISSION : Int
+            fragment: Fragment,
+            REQUEST_STORAGE_PERMISSION: Int
         ): Boolean {
             if (ActivityCompat.checkSelfPermission(
                     context,
@@ -25,8 +27,7 @@ class PermissionUtil {
             ) {
                 return true
             } else {
-                ActivityCompat.requestPermissions(
-                    activity,
+                fragment.requestPermissions(
                     arrayOf(
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE

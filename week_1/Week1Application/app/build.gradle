@@ -88,4 +88,8 @@ dependencies {
 
     //uCrop
     implementation 'com.github.yalantis:ucrop:2.2.6'
+
+    //Fragments
+    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0-beta02"
+    implementation "androidx.navigation:navigation-ui-ktx:2.4.0-beta02"
 }

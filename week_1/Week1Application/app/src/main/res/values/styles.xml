@@ -62,4 +62,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:visibility">invisible</item>
     </style>
+
+    <style name="ToolbarTheme" parent="AppTheme.DayNight">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
 </resources>

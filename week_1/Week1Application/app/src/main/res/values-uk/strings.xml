@@ -28,4 +28,5 @@
     <string name="dark">Темна</string>
     <string name="auto">Автоматично</string>
     <string name="change_theme">Змінити тему</string>
+    <string name="logout">Вийти</string>
 </resources>

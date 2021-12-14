@@ -5,11 +5,16 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
 import com.burlakov.week1application.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -22,7 +27,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 
-class MapActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapFragment : Fragment(), OnMapReadyCallback {
 
     private val INITIAL_ZOOM = 12f
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -32,37 +37,41 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var search: Button
     private var currMarker: Marker? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val root = inflater.inflate(R.layout.fragment_map, container, false)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.map)
-
-        search = findViewById(R.id.search)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        search = root.findViewById(R.id.search)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         val mapFragment = SupportMapFragment.newInstance()
-        supportFragmentManager.beginTransaction()
+        childFragmentManager.beginTransaction()
             .add(R.id.map, mapFragment).commit()
         mapFragment.getMapAsync(this)
 
         search.setOnClickListener {
             if (currMarker != null) {
-                val intent = Intent(this, MapSearchResultActivity::class.java)
-                intent.putExtra(
-                    MapSearchResultActivity.LAT,
+                val bundle = Bundle()
+                bundle.putString(
+                    MapSearchResultFragment.LAT,
                     currMarker!!.position.latitude.toString()
                 )
-                intent.putExtra(
-                    MapSearchResultActivity.LON,
+                bundle.putString(
+                    MapSearchResultFragment.LON,
                     currMarker!!.position.longitude.toString()
                 )
-                startActivity(intent)
-            } else Toast.makeText(this, getString(R.string.no_map_pos), Toast.LENGTH_SHORT).show()
+
+                findNavController().navigate(R.id.action_nav_map_to_nav_map_result, bundle)
+            } else Toast.makeText(context, getString(R.string.no_map_pos), Toast.LENGTH_SHORT)
+                .show()
         }
 
+        return root
     }
+
 
     override fun onMapReady(p0: GoogleMap) {
         map = p0
@@ -77,12 +86,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         enableMyLocation()
     }
 
+    @Suppress("DEPRECATION")
     private fun enableMyLocation() {
         if (addMarkOnMyLocation()) {
             map.setOnMyLocationButtonClickListener { addMarkOnMyLocation() }
         } else {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_LOCATION_PERMISSION
             )
         }
@@ -93,7 +103,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             REQUEST_LOCATION_PERMISSION -> {
                 if ((grantResults.isNotEmpty() &&
@@ -109,13 +118,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun addMarkOnMyLocation(): Boolean {
         if (ActivityCompat.checkSelfPermission(
-                this,
+                requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             map.isMyLocationEnabled = true
             fusedLocationClient.lastLocation
-                .addOnSuccessListener(this) { location ->
+                .addOnSuccessListener { location ->
                     if (location != null) {
                         map.clear()
                         val home = LatLng(location.latitude, location.longitude)
@@ -130,8 +139,4 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         } else return false
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
 }

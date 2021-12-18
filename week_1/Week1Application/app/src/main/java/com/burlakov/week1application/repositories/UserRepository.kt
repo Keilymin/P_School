@@ -21,7 +21,7 @@ class UserRepository(private val userDao: UserDao) {
         return true
     }
 
-    fun registerUser(username: String): User {
+    private fun registerUser(username: String): User {
         val user = User(username)
         val id = userDao.add(User(username))
         user.userId = id

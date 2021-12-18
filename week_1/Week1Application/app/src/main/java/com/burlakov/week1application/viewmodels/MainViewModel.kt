@@ -1,7 +1,7 @@
 package com.burlakov.week1application.viewmodels
 
 
-import android.annotation.SuppressLint
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,10 +14,7 @@ import com.burlakov.week1application.models.SearchText
 import com.burlakov.week1application.repositories.PhotoRepository
 import com.burlakov.week1application.repositories.SearchHistoryRepository
 import com.burlakov.week1application.repositories.UserRepository
-import com.burlakov.week1application.util.Constants
 import kotlinx.coroutines.*
-import java.io.File
-import java.io.IOException
 
 class MainViewModel(
     private val historyRepository: SearchHistoryRepository,
@@ -36,11 +33,6 @@ class MainViewModel(
         get() = _lastText
 
     private var _lastText = MutableLiveData<String>()
-
-    val savedImage: LiveData<File>
-        get() = _savedImage
-
-    private val _savedImage = MutableLiveData<File>()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

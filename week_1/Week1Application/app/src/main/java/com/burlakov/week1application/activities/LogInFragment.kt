@@ -34,7 +34,7 @@ class LogInFragment : Fragment() {
         actv = activity as MenuActivity
 
         singInButton = root.findViewById(R.id.singIn)
-        usernameEditText = root.findViewById(R.id.username)
+        usernameEditText = root.findViewById(R.id.usernameEditText)
 
         logInViewModel.logInResult.observe(this, {
             if (it == true) {

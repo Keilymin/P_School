@@ -29,4 +29,16 @@
     <string name="auto">Автоматично</string>
     <string name="change_theme">Змінити тему</string>
     <string name="logout">Вийти</string>
+    <string name="notification">Сповіщення</string>
+    <string name="search_text">Текст пошуку</string>
+    <string name="autosearch_notif_description">Авто пошук фото через кожні x часу</string>
+    <string name="found">Знайдено</string>
+    <string name="photos">фото</string>
+    <string-array name="times_spinner">
+        <item>15 хв</item>
+        <item>30 хв</item>
+        <item>1 година</item>
+        <item>6 годин</item>
+        <item>1 день</item>
+    </string-array>
 </resources>

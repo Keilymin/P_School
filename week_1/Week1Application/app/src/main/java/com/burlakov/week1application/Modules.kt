@@ -5,10 +5,7 @@ import android.app.Application
 import androidx.room.Room
 import com.burlakov.week1application.api.FlickrApiConstants
 import com.burlakov.week1application.api.PhotoService
-import com.burlakov.week1application.dao.ApplicationDatabase
-import com.burlakov.week1application.dao.SavedPhotoDao
-import com.burlakov.week1application.dao.SearchHistoryDao
-import com.burlakov.week1application.dao.UserDao
+import com.burlakov.week1application.dao.*
 import com.burlakov.week1application.repositories.PhotoRepository
 import com.burlakov.week1application.repositories.SearchHistoryRepository
 import com.burlakov.week1application.repositories.UserRepository
@@ -30,6 +27,7 @@ val appModules = module {
     viewModel { MapSearchResultViewModel(get()) }
     viewModel { GalleryViewModel() }
     viewModel { MenuViewModel() }
+    viewModel { NotificationPhotoViewModel(get()) }
 }
 val repositoryModule = module {
     single { UserRepository(get()) }
@@ -90,8 +88,13 @@ val databaseModule = module {
         return database.searchHistoryDao
     }
 
+    fun provideNotificationPhotoDao(database: ApplicationDatabase): NotificationPhotoDao {
+        return database.notificationPhoto
+    }
+
     single { provideDatabase(androidApplication()) }
     single { provideUserDao(get()) }
     single { providePhotoDao(get()) }
     single { provideSearchDao(get()) }
+    single { provideNotificationPhotoDao(get()) }
 }

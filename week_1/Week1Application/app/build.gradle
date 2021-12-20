@@ -102,4 +102,7 @@ dependencies {
     testImplementation "io.mockk:mockk:1.12.1"
 
     testImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    //WorkManager
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
 }

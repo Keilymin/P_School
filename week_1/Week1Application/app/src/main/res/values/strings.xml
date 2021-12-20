@@ -28,4 +28,17 @@
     <string name="auto">Auto</string>
     <string name="change_theme">Change Theme</string>
     <string name="logout">Logout</string>
+    <string name="notification">Notification</string>
+    <string name="search_text">Search Text</string>
+    <string name="autosearch_notif_description">Auto search photos every x time</string>
+    <string name="found">Found</string>
+    <string name="photos">photos</string>
+
+    <string-array name="times_spinner">
+        <item>15 min</item>
+        <item>30 min</item>
+        <item>1 hour</item>
+        <item>6 hours</item>
+        <item>1 day</item>
+    </string-array>
 </resources>

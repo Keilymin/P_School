@@ -78,7 +78,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             if (isChecked) {
                 spinner.visibility = View.VISIBLE
                 searchEditText.visibility = View.VISIBLE
-                if (searchEditText.text.toString() != notificationSettingsUtil.searchText) {
+                if (!notificationSettingsUtil.switchIsChecked) {
                     runWorker()
                 }
             } else {

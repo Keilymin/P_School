@@ -157,7 +157,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 ExistingPeriodicWorkPolicy.REPLACE,
                 searchWorkRequest
             )
-        }
+        } else WorkManager.getInstance(requireContext()).cancelAllWork()
     }
 
     override fun onClick(v: View?) {

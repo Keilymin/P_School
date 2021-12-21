@@ -3,6 +3,7 @@ package com.burlakov.week1application.viewmodels
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -55,16 +56,13 @@ class ImageViewModel(private val photoRepository: PhotoRepository) : ViewModel()
     }
 
 
-
     @SuppressLint("SimpleDateFormat")
     fun saveToStorage(url: String, context: Context) = viewModelScope.launch(Dispatchers.IO) {
         val img = Glide.with(context).asBitmap().load(url).submit().get()
 
-        
         if (!Constants.externalPublicImageDirectory.exists()) {
-            Constants.externalPublicImageDirectory.mkdir()
+            Constants.externalPublicImageDirectory.mkdirs()
         }
-
         val file = File(Constants.externalPublicImageDirectory, "JPEG_${Constants.timeStamp}.jpg")
 
         val fos = FileOutputStream(file)

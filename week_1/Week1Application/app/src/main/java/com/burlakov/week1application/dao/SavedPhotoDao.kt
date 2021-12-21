@@ -1,6 +1,6 @@
 package com.burlakov.week1application.dao
 
-import androidx.lifecycle.LiveData
+
 import androidx.room.*
 import com.burlakov.week1application.models.SavedPhoto
 import com.burlakov.week1application.models.UserSavedPhotos

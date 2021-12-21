@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class SavedPhoto(
+open class SavedPhoto(
     val photoUserId: Long,
     val searchText: String,
     val photoUrl: String

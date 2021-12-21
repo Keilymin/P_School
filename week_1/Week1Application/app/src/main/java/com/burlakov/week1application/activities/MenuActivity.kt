@@ -32,6 +32,10 @@ import java.io.File
 
 class MenuActivity : AppCompatActivity() {
 
+    companion object{
+        const val NOTIFICATION_INTENT = "NOTIFICATION_INTENT"
+    }
+
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var username: TextView
     private lateinit var path: String
@@ -61,6 +65,9 @@ class MenuActivity : AppCompatActivity() {
         val hView: View = navView.getHeaderView(0)
         username = hView.findViewById(R.id.username)
 
+        if (intent.getBooleanExtra(NOTIFICATION_INTENT,false)){
+            navController.navigate(R.id.to_notif_photo)
+        }
         if (!MyApplication.checkSavedUserState(this)) {
             navController.navigate(R.id.to_login)
         } else {

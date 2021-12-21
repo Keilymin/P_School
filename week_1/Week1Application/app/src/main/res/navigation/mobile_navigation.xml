@@ -17,6 +17,11 @@
         app:popUpTo="@+id/nav_main"
         app:popUpToInclusive="true" />
     <action
+        android:id="@+id/to_notif_photo"
+        app:destination="@id/nav_notif"
+        app:popUpTo="@+id/nav_main"
+        app:popUpToInclusive="true" />
+    <action
         android:id="@+id/to_menu"
         app:destination="@id/nav_main"
         app:launchSingleTop="true"
@@ -79,4 +84,9 @@
         android:name="com.burlakov.week1application.activities.ImageFragment"
         android:label="@string/image_view"
         tools:layout="@layout/fragment_image" />
+    <fragment
+        android:id="@+id/nav_notif"
+        android:name="com.burlakov.week1application.activities.NotificationPhotoFragment"
+        android:label="@string/notification"
+        tools:layout="@layout/fragment_notification_photo" />
 </navigation>

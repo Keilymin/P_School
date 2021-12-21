@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,7 +16,7 @@
         android:padding="8dp"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/changeThemeText"
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
@@ -38,11 +39,67 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/changeThemeText"
         style="@style/TextView.Header"
         android:text="@string/change_theme"
         app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toStartOf="@id/radioGroup"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/base_margin"
+        android:layout_marginEnd="@dimen/base_margin"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radioGroup" />
+
+    <TextView
+        android:id="@+id/notificationText"
+        style="@style/TextView.Header"
+        android:text="@string/notification"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationSwitch"
+        app:layout_constraintEnd_toEndOf="@+id/changeThemeText"
+        app:layout_constraintStart_toStartOf="@+id/changeThemeText"
+        app:layout_constraintTop_toTopOf="@+id/notificationSwitch" />
+
+    <Switch
+        android:id="@+id/notificationSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_margin"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <EditText
+        android:id="@+id/notificationEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_margin"
+        android:ems="10"
+        android:hint="@string/search_text"
+        android:inputType="textPersonName"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/notificationText"
+        app:layout_constraintStart_toStartOf="@+id/notificationText"
+        app:layout_constraintTop_toBottomOf="@+id/notificationText" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationEditText"
+        app:layout_constraintEnd_toEndOf="@+id/notificationSwitch"
+        app:layout_constraintStart_toStartOf="@+id/notificationSwitch"
+        app:layout_constraintTop_toTopOf="@+id/notificationEditText" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
